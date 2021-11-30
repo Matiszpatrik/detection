@@ -52,5 +52,3 @@ image_with_lines = draw_the_lines(image, lines)
 plt.imshow(image_with_lines)
 plt.show()
 
-plt.imshow(image_with_lines)
-plt.show()
