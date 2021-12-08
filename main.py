@@ -21,7 +21,7 @@ def draw_the_lines (img,lines):
     img = cv2.addWeighted(img, 0.8, blank_image, 1, 0.0)
     return img
 
-image = cv2.imread('car.jpg')
+image = cv2.imread('car_2.jpg')
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 #print(image.shape)
@@ -29,8 +29,8 @@ height = image.shape[0]
 width = image.shape[1]
 
 region_of_interest_vertices = [
-    (1700, height),
-    (1700, 0),
+    (1600, height),
+    (1600, 0),
     (2000, 0),
     (2000, height)
 ]
@@ -44,7 +44,7 @@ lines = cv2.HoughLinesP(cropped_image,
                         theta=np.pi/60,
                         threshold=40,
                         lines=np.array([]),
-                        minLineLength=250,
+                        minLineLength=100,
                         maxLineGap=100)
 
 image_with_lines = draw_the_lines(image, lines)
