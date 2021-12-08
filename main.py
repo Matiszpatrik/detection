@@ -29,8 +29,8 @@ height = image.shape[0]
 width = image.shape[1]
 
 region_of_interest_vertices = [
-    (1500, height),
-    (1500, 0),
+    (1700, height),
+    (1700, 0),
     (2000, 0),
     (2000, height)
 ]
