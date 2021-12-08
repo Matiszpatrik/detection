@@ -44,7 +44,7 @@ lines = cv2.HoughLinesP(cropped_image,
                         theta=np.pi/60,
                         threshold=50,
                         lines=np.array([]),
-                        minLineLength=40,
+                        minLineLength=250,
                         maxLineGap=100)
 
 image_with_lines = draw_the_lines(image, lines)
