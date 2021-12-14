@@ -31,8 +31,8 @@ width = image.shape[1]
 region_of_interest_vertices = [
     (1450, height),
     (1450, 0),
-    (1800, 0),
-    (1800, height)
+    (1900, 0),
+    (1900, height)
 ]
 
 gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
@@ -45,7 +45,7 @@ lines = cv2.HoughLinesP(cropped_image,
                         threshold=40,
                         lines=np.array([]),
                         minLineLength=250,
-                        maxLineGap=120)
+                        maxLineGap=45)
 
 image_with_lines = draw_the_lines(image, lines)
 
