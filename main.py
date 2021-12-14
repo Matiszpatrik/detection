@@ -52,7 +52,7 @@ def calculate_angle(lines):
     length_of_normal_vector2 = math.sqrt(normal_vector_x2 * normal_vector_x2 + normal_vector_y2 * normal_vector_y2)
     angle_radian = math.acos((scalar_product)/((length_of_normal_vector)*(length_of_normal_vector2)))
     angle_degree = math.degrees(angle_radian)
-    print('Bezárt szög:', format(angle_degree, ".2f"))
+    print('Bezárt szög:',format(angle_degree,".2f"),'°')
 
 
 image = cv2.imread('car_2.jpg')
