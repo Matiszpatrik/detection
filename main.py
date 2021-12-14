@@ -16,10 +16,25 @@ def draw_the_lines (img,lines):
 
     for line in lines:
         for x1, y1, x2, y2 in line:
+            #print('x1', x1, 'x2', x2, 'y1', y1, 'y2', y2)
             cv2.line(blank_image, (x1, y1), (x2, y2), (0,255,0), thickness=10)
 
     img = cv2.addWeighted(img, 0.8, blank_image, 1, 0.0)
     return img
+
+#ez eddig megmondja az egyenes egyenletét, innen kell tovább írni
+def calculate_angle(lines):
+    for line in lines:
+        for x1, y1, x2, y2 in line:
+            diff = abs(y1 - y2)
+            if diff < 90: #ez arra van, hogy csak a futó felületen lévő egyenest számolja
+                vector_x = x2 - x1
+                vector_y = y2 - y1
+                normal_vector_x = vector_y
+                normal_vector_y = -1*vector_x
+                result_of_equation = normal_vector_x * x1 + normal_vector_y * y1
+                print(normal_vector_x, 'x', '+', normal_vector_y, 'y', '=', result_of_equation)
+
 
 image = cv2.imread('car_2.jpg')
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -48,6 +63,7 @@ lines = cv2.HoughLinesP(cropped_image,
                         maxLineGap=100)
 
 image_with_lines = draw_the_lines(image, lines)
+calculate_angle(lines)
 
 plt.imshow(image_with_lines)
 plt.show()
