@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import matplotlib.pylab as plt
+import math
 
 def region_of_interest(img, vertices):
     mask = np.zeros_like(img)
@@ -22,18 +23,36 @@ def draw_the_lines (img,lines):
     img = cv2.addWeighted(img, 0.8, blank_image, 1, 0.0)
     return img
 
-#ez eddig megmondja az egyenes egyenletét, innen kell tovább írni
+
 def calculate_angle(lines):
+    counter = 0
     for line in lines:
         for x1, y1, x2, y2 in line:
             diff = abs(y1 - y2)
-            if diff < 200: #ez arra van, hogy csak a futó felületen lévő egyenest számolja
-                vector_x = x2 - x1
-                vector_y = y2 - y1
-                normal_vector_x = vector_y
-                normal_vector_y = -1*vector_x
-                result_of_equation = normal_vector_x * x1 + normal_vector_y * y1
-                print(normal_vector_x, 'x', '+', normal_vector_y, 'y', '=', result_of_equation)
+            if diff < 200:   #biztosítja, hogy csak futófelületen lévő egyenest vizsgáljunk (a kerék oldalát ne)
+
+                if counter == 0:
+                    vector_x = x2 - x1
+                    vector_y = y2 - y1
+                    normal_vector_x = vector_y
+                    normal_vector_y = -1 * vector_x
+                    result_of_equation = normal_vector_x * x1 + normal_vector_y * y1
+                    print(normal_vector_x, 'x', '+', normal_vector_y, 'y', '=', result_of_equation)
+                    counter = 1
+                elif counter == 1:
+                    vector_x2 = x2 - x1
+                    vector_y2 = y2 - y1
+                    normal_vector_x2 = vector_y2
+                    normal_vector_y2 = -1 * vector_x2
+                    result_of_equation2 = normal_vector_x2 * x1 + normal_vector_y2 * y1
+                    print(normal_vector_x2, 'x', '+', normal_vector_y2, 'y', '=', result_of_equation2)
+    #print(normal_vector_x, normal_vector_y, normal_vector_x2, normal_vector_y2)
+    scalar_product = (normal_vector_x2 * normal_vector_x) + (normal_vector_y2 * normal_vector_y)
+    length_of_normal_vector = math.sqrt(normal_vector_x * normal_vector_x + normal_vector_y * normal_vector_y)
+    length_of_normal_vector2 = math.sqrt(normal_vector_x2 * normal_vector_x2 + normal_vector_y2 * normal_vector_y2)
+    angle_radian = math.acos((scalar_product)/((length_of_normal_vector)*(length_of_normal_vector2)))
+    angle_degree = math.degrees(angle_radian)
+    print('Bezárt szög:', format(angle_degree, ".2f"))
 
 
 image = cv2.imread('car_2.jpg')
