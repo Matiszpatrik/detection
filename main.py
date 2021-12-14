@@ -27,7 +27,7 @@ def calculate_angle(lines):
     for line in lines:
         for x1, y1, x2, y2 in line:
             diff = abs(y1 - y2)
-            if diff < 90: #ez arra van, hogy csak a futó felületen lévő egyenest számolja
+            if diff < 200: #ez arra van, hogy csak a futó felületen lévő egyenest számolja
                 vector_x = x2 - x1
                 vector_y = y2 - y1
                 normal_vector_x = vector_y
@@ -44,10 +44,10 @@ height = image.shape[0]
 width = image.shape[1]
 
 region_of_interest_vertices = [
-    (1600, height),
-    (1600, 0),
-    (2000, 0),
-    (2000, height)
+    (1450, height),
+    (1450, 0),
+    (1900, 0),
+    (1900, height)
 ]
 
 gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
@@ -60,7 +60,7 @@ lines = cv2.HoughLinesP(cropped_image,
                         threshold=40,
                         lines=np.array([]),
                         minLineLength=250,
-                        maxLineGap=100)
+                        maxLineGap=45)
 
 image_with_lines = draw_the_lines(image, lines)
 calculate_angle(lines)
